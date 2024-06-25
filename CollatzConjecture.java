@@ -1,4 +1,4 @@
-// Source: https://usaco.guide/general/io
+// Source : https://codeforces.com/contest/1982/problem/B
  
 import java.io.*;
 import java.util.*;
