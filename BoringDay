@@ -1,0 +1,53 @@
+// Source: https://codeforces.com/contest/1982/problem/C
+ 
+import java.io.*;
+import java.util.*;
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int T = Integer.parseInt(br.readLine());
+outer:  while(T-- > 0){
+			String[] s = br.readLine().split(" ");
+			int N = Integer.parseInt(s[0]);
+			long L = Long.parseLong(s[1]);
+			long R = Long.parseLong(s[2]);
+			long[] a = new long[N];
+			long[] dp = new long[N];
+			String[] t = br.readLine().split(" ");
+			for(int i = 0; i < N; i++){
+				a[i] = Long.parseLong(t[i]);
+				dp[i] = (i == 0) ? a[i] : a[i] + dp[i-1];
+			}
+			long total = 0;
+			for(int i = 0; i < N; i++){
+				// Binary search for left bound
+				// Binary search for right bound
+				// For left bound : sum from i to j >= i >= L
+				// For right bound : sum from i to j >= i <= R
+				//dp[j] - dp[i-1] >= L 
+				//dp[j] - dp[i-1] <= R 
+				int index1 = Arrays.binarySearch(dp,L + (i == 0 ? 0 : dp[i-1]));
+				int index2 = Arrays.binarySearch(dp, R + (i == 0 ? 0 : dp[i-1]));
+				if(index1 < 0){
+					index1 = -index1 - 1; // First one for L
+				}
+				if(index2 < 0){
+					index2 = -index2 - 2; // Last one for R
+				}
+				
+				//System.out.println("For index " + i + " bounds are " + index1 + " and " + index2);
+				if(index1 > index2){
+					;
+				}
+				else{
+					//System.out.println("Adding " + i + " thru " + index1);
+					total++;
+					i = index1;
+				}
+			}
+			System.out.println(total);
+ 
+		}
+	}
+}
